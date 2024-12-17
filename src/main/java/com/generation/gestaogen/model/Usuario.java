@@ -1,4 +1,4 @@
-package com.generation.genfit.model;
+package com.generation.gestaogen.model;
 
 import javax.persistence.*;
 
