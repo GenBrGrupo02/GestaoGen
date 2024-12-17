@@ -1,7 +1,5 @@
 package com.generation.gestaogen.model;
 
-import javax.persistence.*;
-
 import org.hibernate.annotations.CascadeType;
 
 import jakarta.persistence.Entity;
@@ -24,8 +22,6 @@ public class Usuario {
     private String senha;
     private String foto;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Cliente> clientes;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oportunidade> oportunidades;
