@@ -1,7 +1,8 @@
 package com.generation.gestaogen.model;
 
-import org.hibernate.annotations.CascadeType;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +37,8 @@ public class Usuario {
     @Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
     private String senha;
     
+    @Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caracteres")
+    private String foto;
 
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
