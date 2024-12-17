@@ -51,10 +51,10 @@ public class OportunidadeController {
     }
     
     @PostMapping("/distribuir/{descricao}/{id}")
-    public ResponseEntity<String> distribuir(@PathVariable String descricao, @PathVariable Long clienteId){
+    public ResponseEntity<String> distribuir(@PathVariable String descricao, @PathVariable Long id){
     	OportunidadeService service = new OportunidadeService();
     	try {
-    		service.distribuirOportunidade(descricao, clienteId);
+    		service.distribuirOportunidade(descricao, id);
         	return ResponseEntity.ok("Distribuição de oportunidade realizada!");
     	}catch (ResponseStatusException e) {
             return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
