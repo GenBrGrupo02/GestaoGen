@@ -8,4 +8,5 @@ import com.generation.gestaogen.model.Usuario;
 
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+	
 }
