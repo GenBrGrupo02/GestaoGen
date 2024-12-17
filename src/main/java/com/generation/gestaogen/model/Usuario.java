@@ -66,13 +66,6 @@ public class Usuario {
         this.foto = foto;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
-    }
 
     public List<Oportunidade> getOportunidades() {
         return oportunidades;
