@@ -1,5 +1,6 @@
 package com.generation.gestaogen.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,6 +33,7 @@ public class Usuario {
 	@Size(min = 2, max = 100, message = "O atributo nome deve conter no mínimo 02 e no máximo 100 caracteres.")
 	@NotNull(message = "O Atributo Usuário é Obrigatório!")
 	@Email(message = "O Atributo Usuário deve ser um email válido!")
+	@Schema(example = "email@email.com.br")
 	private String usuario;
 
 	@NotBlank(message = "O Atributo Senha é Obrigatório!")
