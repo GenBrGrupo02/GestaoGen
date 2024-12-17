@@ -1,4 +1,4 @@
-package com.gestaogen;
+package com.generation.gestaogen;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
