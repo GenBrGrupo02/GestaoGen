@@ -1,9 +1,10 @@
 package com.generation.gestaogen.service;
 
 import com.generation.gestaogen.model.UsuarioLogin;
-import com.generation.gestaogen.security.JwtService;
 import com.generation.gestaogen.model.Usuario;
 import com.generation.gestaogen.repository.UsuarioRepository;
+import com.gestaogen.security.JwtService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,8 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Optional;
 
 @Service
@@ -37,9 +36,9 @@ public class UsuarioService {
 	}
 
 	public Optional<Usuario> atualizarUsuario(Usuario usuario) {
-		if (usuarioRepository.findById(usuario.getUsuarioId()).isPresent()) {
+		if (usuarioRepository.findById(usuario.getId()).isPresent()) {
 			Optional<Usuario> buscaUsuario = usuarioRepository.findByUsuario(usuario.getUsuario());
-			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getUsuarioId() != usuario.getUsuarioId()))
+			if ((buscaUsuario.isPresent()) && (buscaUsuario.get().getId() != usuario.getId()))
 				throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
 			usuario.setSenha(criptografarSenha(usuario.getSenha()));
 			return Optional.ofNullable(usuarioRepository.save(usuario));
@@ -54,7 +53,7 @@ public class UsuarioService {
 		if (authentication.isAuthenticated()) {
 			Optional<Usuario> usuario = usuarioRepository.findByUsuario(usuarioLogin.get().getUsuario());
 			if (usuario.isPresent()) {
-				usuarioLogin.get().setId(usuario.get().getUsuarioId());
+				usuarioLogin.get().setId(usuario.get().getId());
 				usuarioLogin.get().setNome(usuario.get().getNome());
 				usuarioLogin.get().setFoto(usuario.get().getFoto());
 				usuarioLogin.get().setToken(gerarToken(usuarioLogin.get().getUsuario()));
