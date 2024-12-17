@@ -1,9 +1,16 @@
 package com.generation.gestaogen.model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
@@ -30,6 +37,10 @@ public class Cliente {
 	private String areaAtuacao;
 	
 	private boolean status;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties("cliente")
+	private List<Oportunidade> oportunidades;
 	
 	public Long getId() {
 		return id;
@@ -86,5 +97,12 @@ public class Cliente {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+
+	public List<Oportunidade> getOportunidades() {
+		return oportunidades;
+	}
+
+	public void setOportunidades(List<Oportunidade> oportunidades) {
+		this.oportunidades = oportunidades;
+	}
 }

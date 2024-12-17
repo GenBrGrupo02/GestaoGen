@@ -35,8 +35,6 @@ public class Usuario {
     @NotBlank(message = "O Atributo Senha é Obrigatório!")
     @Size(min = 8, message = "A Senha deve ter no mínimo 8 caracteres")
     private String senha;
-    
-
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Oportunidade> oportunidades;
