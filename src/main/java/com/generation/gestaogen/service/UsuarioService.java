@@ -3,7 +3,7 @@ package com.generation.gestaogen.service;
 import com.generation.gestaogen.model.UsuarioLogin;
 import com.generation.gestaogen.model.Usuario;
 import com.generation.gestaogen.repository.UsuarioRepository;
-import com.gestaogen.security.JwtService;
+import com.generation.gestaogen.security.JwtService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

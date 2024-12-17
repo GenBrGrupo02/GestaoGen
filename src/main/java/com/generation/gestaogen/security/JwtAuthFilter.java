@@ -1,4 +1,4 @@
-package com.gestaogen.security;
+package com.generation.gestaogen.security;
 
 import java.io.IOException;
 
