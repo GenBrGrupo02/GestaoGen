@@ -2,11 +2,10 @@ package com.generation.gestaogen.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,10 +35,10 @@ public class Cliente {
 	@NotNull
 	private String areaAtuacao;
 	
-	private boolean status;
+	private boolean status = true;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonManagedReference
 	private List<Oportunidade> oportunidades;
 	
 	public Long getId() {

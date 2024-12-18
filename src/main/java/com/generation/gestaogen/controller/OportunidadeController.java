@@ -28,6 +28,9 @@ import jakarta.validation.Valid;
 @RequestMapping("/oportunidade")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class OportunidadeController {
+	
+	@Autowired
+    private OportunidadeService service;
     
     @Autowired
     private OportunidadeRepository oportunidadeRepository;
@@ -44,6 +47,11 @@ public class OportunidadeController {
             .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
     
+    @GetMapping("/descricao/{descricao}")
+    public ResponseEntity<List<Oportunidade>> getByDescricao(@PathVariable String descricao){
+        return ResponseEntity.ok(oportunidadeRepository.findAllByDescricaoContainingIgnoreCase(descricao));
+    }
+    
     @PostMapping
     public ResponseEntity<Oportunidade> post(@Valid @RequestBody Oportunidade oportunidade){
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -52,7 +60,6 @@ public class OportunidadeController {
     
     @PostMapping("/distribuir/{descricao}/{id}")
     public ResponseEntity<String> distribuir(@PathVariable String descricao, @PathVariable Long id){
-    	OportunidadeService service = new OportunidadeService();
     	try {
     		service.distribuirOportunidade(descricao, id);
         	return ResponseEntity.ok("Distribuição de oportunidade realizada!");
