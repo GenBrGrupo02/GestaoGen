@@ -34,12 +34,12 @@ public class Oportunidade {
 
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
-	@JsonBackReference
+	@JsonBackReference("usuario-oportunidades")
 	private Usuario usuario;
 
 	@ManyToOne
     @JoinColumn(name = "cliente_id")
-    @JsonBackReference
+    @JsonBackReference("cliente-oportunidades")
 	private Cliente cliente;
 
 	public Long getId() {

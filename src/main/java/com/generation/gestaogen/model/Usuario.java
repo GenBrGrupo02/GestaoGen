@@ -43,7 +43,7 @@ public class Usuario {
 	private String foto;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonManagedReference
+	@JsonManagedReference("usuario-oportunidades")
 	private List<Oportunidade> oportunidades;
 
 	public Long getId() {

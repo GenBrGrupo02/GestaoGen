@@ -38,7 +38,7 @@ public class Cliente {
 	private boolean status = true;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("cliente-oportunidades")
 	private List<Oportunidade> oportunidades;
 	
 	public Long getId() {
