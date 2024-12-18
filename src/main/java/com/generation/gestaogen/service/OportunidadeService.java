@@ -30,7 +30,7 @@ public class OportunidadeService {
 	        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 
 	    for (Oportunidade oportunidade : oportunidades) {
-	        oportunidade.setPreenchida(true);
+	        oportunidade.setAlocada(true);
 	        oportunidade.setCliente(cliente); 
 	        oportunidadeRepository.save(oportunidade); 
 	    }

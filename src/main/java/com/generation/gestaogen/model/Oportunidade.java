@@ -27,7 +27,7 @@ public class Oportunidade {
 
 	private String descricao;
 
-	private boolean preenchida = false;
+	private boolean alocada = false;
 
 	@Column(precision = 9, scale = 2)
 	private BigDecimal salario;
@@ -66,12 +66,12 @@ public class Oportunidade {
 		this.descricao = descricao;
 	}
 
-	public boolean isPreenchida() {
-		return preenchida;
+	public boolean isAlocada() {
+		return alocada;
 	}
 
-	public void setPreenchida(boolean preenchida) {
-		this.preenchida = preenchida;
+	public void setAlocada(boolean alocada) {
+		this.alocada = alocada;
 	}
 
 	public BigDecimal getSalario() {
