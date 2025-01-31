@@ -41,10 +41,13 @@ public class Usuario {
 
 	@Size(max = 5000, message = "O link da foto não pode ser maior do que 5000 caracteres")
 	private String foto;
+	
+	
+	private String tipo;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonManagedReference("usuario-oportunidades")
-	private List<Oportunidade> oportunidades;
+	@JsonManagedReference("usuario-cliente")
+	private List<Cliente> clientes;
 
 	public Long getId() {
 		return id;
@@ -86,11 +89,22 @@ public class Usuario {
 		this.foto = foto;
 	}
 
-	public List<Oportunidade> getOportunidades() {
-		return oportunidades;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setOportunidades(List<Oportunidade> oportunidades) {
-		this.oportunidades = oportunidades;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+	
+	
+	
 }

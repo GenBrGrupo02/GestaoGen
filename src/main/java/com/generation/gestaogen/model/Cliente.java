@@ -1,20 +1,19 @@
 package com.generation.gestaogen.model;
 
-import java.util.List;
+import org.hibernate.validator.constraints.br.CPF;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_clientes")
+@Table(name = "tb_cliente")
 public class Cliente {
 
 	@Id
@@ -32,15 +31,25 @@ public class Cliente {
 	
 	private String telefone;
 	
-	@NotNull
-	private String areaAtuacao;
+	@CPF
+	private String cpf;
 	
-	private boolean status = true;
 	
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonManagedReference("cliente-oportunidades")
-	private List<Oportunidade> oportunidades;
+	private String email;
+
 	
+	private boolean status = false;
+	
+	@ManyToOne
+	@JoinColumn(name = "usuario_id")
+	@JsonBackReference("usuario-cliente")
+	private Usuario usuario;
+
+	@ManyToOne
+    @JoinColumn(name = "cliente_id")
+    @JsonBackReference("consulta-cliente")
+	private Consulta consulta;
+
 	public Long getId() {
 		return id;
 	}
@@ -81,12 +90,20 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public String getAreaAtuacao() {
-		return areaAtuacao;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setAreaAtuacao(String areaAtuacao) {
-		this.areaAtuacao = areaAtuacao;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public boolean isStatus() {
@@ -97,11 +114,24 @@ public class Cliente {
 		this.status = status;
 	}
 
-	public List<Oportunidade> getOportunidades() {
-		return oportunidades;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setOportunidades(List<Oportunidade> oportunidades) {
-		this.oportunidades = oportunidades;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
+
+	public Consulta getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(Consulta consulta) {
+		this.consulta = consulta;
+	}
+
+
+	
+	
+
 }

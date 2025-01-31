@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.gestaogen.model.Cliente;
 import com.generation.gestaogen.repository.ClienteRepository;
+import com.generation.gestaogen.service.ClienteService;
 
 import jakarta.validation.Valid;
 
@@ -27,45 +28,52 @@ import jakarta.validation.Valid;
 @RequestMapping("/clientes")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ClienteController {
-	
+
 	@Autowired
 	private ClienteRepository clienteRepository;
-	
+
 	@GetMapping
-	public ResponseEntity<List<Cliente>> getAll(){
+	public ResponseEntity<List<Cliente>> getAll() {
 		return ResponseEntity.ok(clienteRepository.findAll());
 	}
-	
+
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> getById(@PathVariable Long id){
-		return clienteRepository.findById(id)
-				.map(resposta -> ResponseEntity.ok(resposta))
+	public ResponseEntity<Cliente> getById(@PathVariable Long id) {
+		return clienteRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente){
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(clienteRepository.save(cliente));
+	public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente));
+	}
+
+	@PutMapping
+	public ResponseEntity<Cliente> put(@Valid @RequestBody Cliente cliente) {
+		return clienteRepository.findById(cliente.getId())
+				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente)))
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@PutMapping
-	public ResponseEntity<Cliente> put(@Valid @RequestBody Cliente cliente){
-		return clienteRepository.findById(cliente.getId())
-				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
-				.body(clienteRepository.save(cliente)))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+	@PutMapping("/{id}")
+	public ResponseEntity<Cliente> alterarStatus(@PathVariable Long id){
+		
+		ClienteService service = new ClienteService();
+		
+		return service.
+		
+		
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
-		
-		if(cliente.isEmpty())
+
+		if (cliente.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		
+
 		clienteRepository.deleteById(id);
 	}
-	
+
 }
