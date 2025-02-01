@@ -30,6 +30,9 @@ import jakarta.validation.Valid;
 public class ClienteController {
 
 	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
 	private ClienteRepository clienteRepository;
 
 	@GetMapping
@@ -56,13 +59,9 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Cliente> alterarStatus(@PathVariable Long id){
+	public void alterarStatus(@PathVariable Long id){
 		
-		ClienteService service = new ClienteService();
-		
-		return service.
-		
-		
+		clienteService.mudarStatus(id);
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)

@@ -2,8 +2,7 @@ package com.generation.gestaogen.model;
 
 import java.util.List;
 
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 
@@ -27,7 +26,10 @@ public class Consulta {
 	private String nome;
 
 	private String descricao;
-
+	
+	@OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL)
+	@JsonIgnoreProperties("consulta")
+	private List<Cliente> clientes;
 
 	public Long getId() {
 		return id;
@@ -67,16 +69,5 @@ public class Consulta {
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
 	}
-
-
-	@OneToMany(mappedBy = "consulta", cascade = CascadeType.ALL)
-    @JsonManagedReference("consulta-clientes")
-	private List<Cliente> clientes;
-
-
-
-
-
-	
 }
 

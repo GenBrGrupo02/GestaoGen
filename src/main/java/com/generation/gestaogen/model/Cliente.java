@@ -1,8 +1,9 @@
 package com.generation.gestaogen.model;
 
-import org.hibernate.validator.constraints.br.CPF;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.br.CPF;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -32,22 +34,23 @@ public class Cliente {
 	private String telefone;
 	
 	@CPF
+	@NotNull
 	private String cpf;
 	
-	
+	@Email
+	@NotNull
 	private String email;
-
 	
 	private boolean status = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "usuario_id")
-	@JsonBackReference("usuario-cliente")
+	@JsonIgnoreProperties("clientes")
 	private Usuario usuario;
 
 	@ManyToOne
-    @JoinColumn(name = "cliente_id")
-    @JsonBackReference("consulta-cliente")
+    @JoinColumn(name = "consulta_id")
+	@JsonIgnoreProperties("clientes")
 	private Consulta consulta;
 
 	public Long getId() {
@@ -129,9 +132,4 @@ public class Cliente {
 	public void setConsulta(Consulta consulta) {
 		this.consulta = consulta;
 	}
-
-
-	
-	
-
 }

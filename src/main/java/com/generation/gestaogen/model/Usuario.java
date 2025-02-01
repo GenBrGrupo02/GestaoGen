@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "tb_usuarios")
@@ -46,7 +46,7 @@ public class Usuario {
 	private String tipo;
 
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-	@JsonManagedReference("usuario-cliente")
+	@JsonIgnoreProperties("usuario")
 	private List<Cliente> clientes;
 
 	public Long getId() {
@@ -103,8 +103,5 @@ public class Usuario {
 
 	public void setClientes(List<Cliente> clientes) {
 		this.clientes = clientes;
-	}
-	
-	
-	
+	}	
 }

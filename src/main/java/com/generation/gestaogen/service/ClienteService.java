@@ -29,15 +29,14 @@ public class ClienteService {
 		Cliente cliente = clienteRepository.findById(clienteId)
 				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
 		
-		Optional<Consulta> opcionalPresente = Optional.of(cliente.getConsulta());
+		Optional<Consulta> opcionalPresente = Optional.ofNullable(cliente.getConsulta());
 		
 		if (opcionalPresente.isPresent()) {
 		    cliente.setStatus(true);
-		    clienteRepository.save(cliente);
+		}else {
+			cliente.setStatus(false);
 		}
-
-				
+		
+		clienteRepository.save(cliente);
 	}
-	
-
 }
