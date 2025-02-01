@@ -85,7 +85,7 @@ public class UsuarioController {
 	}
 	
 	@PutMapping("/remover-cliente/{usuarioId}/{clienteId}")
-    public ResponseEntity<Usuario> removerClienteDaConsulta(@PathVariable Long usuarioId, @PathVariable Long clienteId) {
+    public ResponseEntity<Usuario> removerClienteDoUsuario(@PathVariable Long usuarioId, @PathVariable Long clienteId) {
         Usuario usuario = usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));
 
