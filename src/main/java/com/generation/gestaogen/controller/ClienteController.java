@@ -59,11 +59,19 @@ public class ClienteController {
 	}
 	
 	@PutMapping("/{id}")
-	public void alterarStatus(@PathVariable Long id){
-		
-		clienteService.mudarStatus(id);
+	public ResponseEntity<String> alterarStatus(@PathVariable Long id) {
+	    try {
+	        clienteService.mudarStatus(id);
+	        return ResponseEntity.ok("Status do cliente alterado com sucesso.");
+	    } catch (ResponseStatusException e) {
+	        return ResponseEntity.status(e.getStatusCode())
+	                             .body(e.getMessage());
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("Erro ao alterar o status do cliente.");
+	    }
 	}
-	
+
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
