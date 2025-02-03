@@ -25,18 +25,20 @@ public class ClienteService {
 	
 	
 	public void mudarStatus(Long clienteId) {
-		
-		Cliente cliente = clienteRepository.findById(clienteId)
-				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
-		
-		Optional<Consulta> opcionalPresente = Optional.ofNullable(cliente.getConsulta());
-		
-		if (opcionalPresente.isPresent()) {
-		    cliente.setStatus(true);
-		}else {
-			cliente.setStatus(false);
-		}
-		
-		clienteRepository.save(cliente);
+	    Cliente cliente = clienteRepository.findById(clienteId)
+	            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+	    
+	    boolean statusAtual = cliente.isStatus();
+	    Optional<Consulta> opcionalPresente = Optional.ofNullable(cliente.getConsulta());
+	    
+	    boolean novoStatus = opcionalPresente.isPresent();
+	    
+	    if (statusAtual == novoStatus) {
+	        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Status não foi alterado.");
+	    }
+	    
+	    cliente.setStatus(novoStatus);
+	    clienteRepository.save(cliente);
 	}
+
 }
